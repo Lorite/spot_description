@@ -15,9 +15,9 @@
         <geometry>
           <mesh filename="package://spot_description/meshes/arm/visual/arm_link_sh0.obj" />
         </geometry>
-        <material name="arm_link_sh0">
+        <!--<material name="arm_link_sh0">
           <color rgba="0.2 0.2 0.2 1" />
-        </material>
+        </material>-->
       </visual>
       <collision>
         <geometry>
@@ -68,9 +68,9 @@
         <geometry>
           <mesh filename="package://spot_description/meshes/arm/visual/arm_link_sh1.obj" />
         </geometry>
-        <material name="arm_link_sh1">
+        <!--<material name="arm_link_sh1">
           <color rgba="0.2 0.2 0.2 1" />
-        </material>
+        </material>-->
       </visual>
       <inertial>
         <origin rpy="0.009910032200701302 -0.5123007314267984 0.002209016500439809"
@@ -135,9 +135,9 @@
         <geometry>
           <mesh filename="package://spot_description/meshes/arm/visual/arm_link_el0.obj" />
         </geometry>
-        <material name="arm_link_el0">
+        <!--<material name="arm_link_el0">
           <color rgba="0.2 0.2 0.2 1" />
-        </material>
+        </material>-->
       </visual>
       <collision>
         <geometry>
@@ -177,9 +177,9 @@
         <geometry>
           <mesh filename="package://spot_description/meshes/arm/visual/arm_link_el1.obj" />
         </geometry>
-        <material name="arm_link_el1">
+        <!--<material name="arm_link_el1">
           <color rgba="0.2 0.2 0.2 1" />
-        </material>
+        </material>-->
       </visual>
       <collision>
         <geometry>
@@ -225,9 +225,9 @@
         <geometry>
           <mesh filename="package://spot_description/meshes/arm/visual/arm_link_wr0.obj" />
         </geometry>
-        <material name="arm_link_wr0">
+        <!--<material name="arm_link_wr0">
           <color rgba="0.2 0.2 0.2 1" />
-        </material>
+        </material>-->
       </visual>
       <collision>
         <geometry>
@@ -276,9 +276,9 @@
           <geometry>
             <mesh filename="package://spot_description/meshes/arm/visual/arm_link_wr1.obj" />
           </geometry>
-          <material name="arm_link_wr1">
+          <!--<material name="arm_link_wr1">
             <color rgba="0.2 0.2 0.2 1" />
-          </material>
+          </material>-->
         </visual>
         <collision>
           <geometry>
@@ -345,9 +345,9 @@
           <geometry>
             <mesh filename="package://spot_description/meshes/arm/visual/arm_link_fngr.obj" />
           </geometry>
-          <material name="arm_link_fngr">
+          <!--<material name="arm_link_fngr">
             <color rgba="0.2 0.2 0.2 1" />
-          </material>
+          </material>-->
         </visual>
         <collision>
           <geometry>
