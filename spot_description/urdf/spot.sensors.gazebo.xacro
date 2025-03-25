@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <xacro:macro name="default_inertial">
+        <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="1e-5" />
+            <inertia ixx="1e-3" ixy="1e-6" ixz="1e-6"
+                     iyy="1e-3" iyz="1e-6"
+                     izz="1e-3" />
+        </inertial>
+    </xacro:macro>
+
+    <xacro:macro name="fixed_joint" params="name parent child xyz:='0 0 0' rpy:='0 0 0' lump:=0">
+        <joint name="${name}" type="fixed">
+            <parent link="${parent}"/>
+            <child link="${child}"/>
+            <origin xyz="${xyz}" rpy="${rpy}"/>
+        </joint>
+        <xacro:if value="${lump == 0}">
+            <!-- workaround for https://github.com/osrf/sdformat/issues/378 -->
+            <gazebo reference="${name}">
+                <preserveFixedJoint>true</preserveFixedJoint>
+            </gazebo>
+        </xacro:if>
+    </xacro:macro>
+
+    <xacro:macro name="spot_camera" params="prefix name simulate:=1 visualize:=0" >
+        <link name="${prefix}camera_${name}">
+            <xacro:default_inertial />
+            <xacro:if value="${visualize}">
+                <visual>
+                    <geometry>
+                        <box size="0.02 0.1 0.04" />
+                    </geometry>
+                </visual>
+            </xacro:if>
+        </link>
+        <xacro:if value="${simulate}">
+            <gazebo reference="${prefix}camera_${name}">
+                <!-- Fisheye grayscale camera -->
+                <!-- Ignition Gazebo doesn't yet have wideanglecamera https://github.com/ignitionrobotics/ign-sensors/issues/24 -->
+                <sensor name="${name}_fisheye_image" type="camera">
+                    <pose>0 0.01 0 0 0 0</pose>
+                    <update_rate>30</update_rate>
+                    <topic>${name}_fisheye</topic>
+                    <visualize>${visualize}</visualize>
+                    <camera>
+                        <horizontal_fov>${radians(102.35)}</horizontal_fov> <!-- computed from real fx -->
+                        <image>
+                            <width>640</width>
+                            <height>480</height>
+                            <format>R8G8B8</format>
+                        </image>
+                        <clip>
+                            <near>0.1</near>
+                            <far>20.0</far>
+                        </clip>
+                        <noise>
+                            <type>gaussian</type>
+                            <mean>0.0</mean>
+                            <stddev>0.007</stddev>
+                        </noise>
+                        <lens>
+                            <intrinsics>
+                                <fx>257.4866</fx> <!-- from real Spot of CoSTAR -->
+                                <fy>257.4866</fy> <!-- =fx; real Spot has 256.9733 -->
+                                <cx>319.5</cx> <!-- ideal value -->
+                                <cy>239.5</cy> <!-- ideal value -->
+                                <s>0</s>
+                            </intrinsics>
+                        </lens>
+                    </camera>
+                </sensor>
+
+                <sensor name="${name}_depth" type="depth_camera">
+                    <pose>0 0 0 0 0 0</pose>
+                    <update_rate>10</update_rate>
+                    <visualize>${visualize}</visualize>
+                    <topic>${name}_depth</topic>
+                    <camera>
+                        <horizontal_fov>${radians(102.35)}</horizontal_fov> <!-- put here equal to mono cam -->
+                        <optical_frame_id>${prefix}camera_${name}</optical_frame_id>
+                        <image>
+                            <width>424</width>
+                            <height>240</height>
+                            <format>R_FLOAT32</format>
+                        </image>
+                        <clip>
+                            <near>0.1</near>
+                            <far>4.0</far>
+                        </clip>
+                        <!--<noise>
+                            <type>gaussian</type>
+                            <mean>0.0</mean>
+                            <stddev>0.007</stddev>
+                        </noise>-->
+                    </camera>
+                </sensor>
+            </gazebo>
+        </xacro:if>
+    </xacro:macro>
+
+    <!-- Body cameras -->
+    <xacro:macro name="add_cameras" params="prefix:='' ">
+
+      <xacro:spot_camera prefix="${prefix}" name="frontleft" simulate="1" />
+      <xacro:fixed_joint name="camera_frontleft_j" parent="${prefix}base_link" child="${prefix}camera_frontleft" xyz="0.415 0.037 -0.01" rpy="0.0 0.353917 -0.554196" /> <!-- r: 1.355558 -->
+
+      <xacro:spot_camera prefix="${prefix}" name="frontright" simulate="1" />
+      <xacro:fixed_joint name="camera_frontright_j" parent="${prefix}base_link" child="${prefix}camera_frontright" xyz="0.415 -0.037 -0.01" rpy="0.0 0.353917 0.554196" /> <!-- r: -1.355558-->
+
+      <xacro:spot_camera prefix="${prefix}" name="left" simulate="1" />
+      <xacro:fixed_joint name="camera_left_j" parent="${prefix}base_link" child="${prefix}camera_left" xyz="-0.125 0.12 0.035" rpy="0 0.2 ${pi/2}" />
+
+      <xacro:spot_camera prefix="${prefix}" name="right" simulate="1" />
+      <xacro:fixed_joint name="camera_right_j" parent="${prefix}base_link" child="${prefix}camera_right" xyz="-0.125 -0.12 0.035" rpy="0 0.2 ${-pi/2}" />
+
+      <xacro:spot_camera prefix="${prefix}" name="back" simulate="1" />
+      <xacro:fixed_joint name="camera_back_j" parent="${prefix}base_link" child="${prefix}camera_back" xyz="-0.425 0 0.01" rpy="0 0.3 ${-pi}" />
+    
+    </xacro:macro>    
+    
+</robot>
