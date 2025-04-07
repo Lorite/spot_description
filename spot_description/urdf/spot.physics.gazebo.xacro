@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+
+<robot name="spot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+        
+    <xacro:macro name="spot_gazebo_physics" params="leg_kp:=1e+07 leg_kd:=100.0 leg_mu1=1.0 leg_mu2=1.0 leg_fdir1=''">
+
+        <gazebo reference="front_left_lower_leg">
+            <kp>${leg_kp}</kp>
+            <kd>${leg_kd}</kd>
+            <mu1>${leg_mu1}</mu1>
+            <mu2>${leg_mu2}</mu2>
+            <!--<xacro:if value="${'${leg_fdir1}' != ''}">
+                <fdir1>${leg_fdir1}</fdir1>
+            </xacro:if>-->
+            <!--<sensor name="contact" type="contact">
+                <contact>
+                    <collision>${leg_name}_lower_leg_collision</collision>
+                    <collision>${leg_name}_lower_leg_collision_1</collision>
+                </contact>
+            </sensor>-->
+        </gazebo>
+
+        <gazebo reference="front_right_lower_leg">
+          <collision>
+            <surface>
+              <ode>
+              <kp>${leg_kp}</kp>
+              <kd>${leg_kd}</kd>
+              <mu1>${leg_mu1}</mu1>
+              <mu2>${leg_mu2}</mu2>
+              </ode>
+            </surface>
+            </collision>
+            <!--<xacro:if value="${'${leg_fdir1}' != ''}">
+                <fdir1>${leg_fdir1}</fdir1>
+            </xacro:if>-->
+            <!--<sensor name="contact" type="contact">
+                <contact>
+                    <collision>${leg_name}_lower_leg_collision</collision>
+                    <collision>${leg_name}_lower_leg_collision_1</collision>
+                </contact>
+            </sensor>-->
+        </gazebo>
+
+
+        <gazebo reference="rear_left_lower_leg">
+            <kp>${leg_kp}</kp>
+            <kd>${leg_kd}</kd>
+            <mu1>${leg_mu1}</mu1>
+            <mu2>${leg_mu2}</mu2>
+            <!--<xacro:if value="${'${leg_fdir1}' != ''}">
+                <fdir1>${leg_fdir1}</fdir1>
+            </xacro:if>-->
+            <!--<sensor name="contact" type="contact">
+                <contact>
+                    <collision>${leg_name}_lower_leg_collision</collision>
+                    <collision>${leg_name}_lower_leg_collision_1</collision>
+                </contact>
+            </sensor>-->
+        </gazebo>
+
+
+        <gazebo reference="rear_right_lower_leg">
+            <kp>${leg_kp}</kp>
+            <kd>${leg_kd}</kd>
+            <mu1>${leg_mu1}</mu1>
+            <mu2>${leg_mu2}</mu2>
+            <!--<xacro:if value="${'${leg_fdir1}' != ''}">
+                <fdir1>${leg_fdir1}</fdir1>
+            </xacro:if>-->
+            <!--<sensor name="contact" type="contact">
+                <contact>
+                    <collision>${leg_name}_lower_leg_collision</collision>
+                    <collision>${leg_name}_lower_leg_collision_1</collision>
+                </contact>
+            </sensor>-->
+        </gazebo>
+
+
+
+    </xacro:macro>     
+    
+</robot>       

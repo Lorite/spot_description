@@ -5,7 +5,8 @@
   <xacro:include filename="$(find spot_description)/urdf/spot_macro.xacro" />
   <!-- Macros for loading the ROS 2 control tags -->
   <xacro:include filename="$(find spot_description)/urdf/spot.ros2_control.xacro" />
-
+  <xacro:include filename="$(find spot_description)/urdf/spot.physics.gazebo.xacro" />
+  
   <!-- General parameters -->
 
   <!-- String that will be prepended to all joints and links-->
@@ -65,5 +66,7 @@
     <xacro:add_cameras prefix="$(arg tf_prefix)" />
   </xacro:if>
 
+  <!-- Gazebo tags -->
+  <xacro:spot_gazebo_physics />
 
 </robot>
