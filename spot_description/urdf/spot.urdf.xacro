@@ -69,4 +69,11 @@
   <!-- Gazebo tags -->
   <xacro:spot_gazebo_physics />
 
+  <!-- Gazebo plugins: odom state publisher -->
+  <!--<xacro:spot_odometry_publisher />-->
+
+  <!-- Gazebo plugins: pose publisher -->
+  <xacro:spot_pose_publisher />
+
+
 </robot>
