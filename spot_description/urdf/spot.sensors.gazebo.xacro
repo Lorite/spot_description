@@ -119,6 +119,32 @@
       <xacro:spot_camera prefix="${prefix}" name="back" simulate="1" />
       <xacro:fixed_joint name="camera_back_j" parent="${prefix}base_link" child="${prefix}camera_back" xyz="-0.425 0 0.01" rpy="0 0.3 ${-pi}" />
     
+    </xacro:macro>
+    
+    <!-- Odometry simulation -->
+    <xacro:macro name="spot_odometry_publisher">
+      <gazebo>
+        <plugin filename="gz-sim-odometry-publisher-system" name="gz::sim::systems::OdometryPublisher">
+          <odom_frame>odom</odom_frame>
+          <robot_base_frame>base_link</robot_base_frame>
+          <odom_publish_frequency>10</odom_publish_frequency>
+          <tf_topic>spot/odom</tf_topic>
+        </plugin>
+      </gazebo> 
     </xacro:macro>    
+    
+    <!-- PosePublisher - P3D-equivalent -->
+    <xacro:macro name="spot_pose_publisher">
+      <gazebo>
+        <plugin filename="gz-sim-pose-publisher-system" name="gz::sim::systems::PosePublisher">
+          <publish_link_pose>false</publish_link_pose>
+          <publish_nested_model_pose>true</publish_nested_model_pose>
+          <publish_model_pose>true</publish_model_pose>
+          <update_frequency>30</update_frequency>
+          <use_pose_vector_msg>false</use_pose_vector_msg>
+        </plugin>
+      </gazebo> 
+    </xacro:macro>  
+
     
 </robot>
