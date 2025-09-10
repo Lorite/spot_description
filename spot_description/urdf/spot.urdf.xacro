@@ -5,7 +5,8 @@
   <xacro:include filename="$(find spot_description)/urdf/spot_macro.xacro" />
   <!-- Macros for loading the ROS 2 control tags -->
   <xacro:include filename="$(find spot_description)/urdf/spot.ros2_control.xacro" />
-
+  <xacro:include filename="$(find spot_description)/urdf/spot.physics.gazebo.xacro" />
+  
   <!-- General parameters -->
 
   <!-- String that will be prepended to all joints and links-->
@@ -31,7 +32,10 @@
   <xacro:arg name="leasing" default="direct" />
   <xacro:arg name="k_q_p" default="" />
   <xacro:arg name="k_qd_p" default="" />
-	<xacro:arg name="include_transmissions" default="false" />^M
+  <xacro:arg name="include_transmissions" default="false" />
+
+  <!-- Simulate cameras -->
+  <xacro:arg name="simulate_cameras" default="True" />
 
   <!-- Load Spot -->
   <xacro:load_spot
@@ -55,5 +59,21 @@
                                k_q_p="$(arg k_q_p)"
                                k_qd_p="$(arg k_qd_p)" />
   </xacro:if>
+  
+  <!-- Adding cameras -->
+  <xacro:if value="$(arg simulate_cameras)">
+    <xacro:include filename="$(find spot_description)/urdf/spot.sensors.gazebo.xacro" />  
+    <xacro:add_cameras prefix="$(arg tf_prefix)" />
+  </xacro:if>
+
+  <!-- Gazebo tags -->
+  <!--<xacro:spot_gazebo_physics />-->
+
+  <!-- Gazebo plugins: odom state publisher -->
+  <!--<xacro:spot_odometry_publisher />-->
+
+  <!-- Gazebo plugins: pose publisher -->
+  <xacro:spot_pose_publisher />
+
 
 </robot>
