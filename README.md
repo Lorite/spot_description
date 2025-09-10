@@ -1,6 +1,8 @@
 # spot_description
 
-This ROS 2 package contains the URDF files for Spot. There are two Spot models, referred to as `spot` and `spot_simple`, which primarily differ in the number of links in the base frame. There is also a `standalone_arm` model to view the Spot Arm independently. 
+This ROS 2 package contains the URDF files for Spot. There are two Spot models, referred to as `spot` and `spot_simple`, which primarily differ in the number of links in the base frame. There is also a `standalone_arm` model to view the Spot Arm independently.
+
+The URDF files also work in the Gazebo simulation with the `spot_ros2_ign` package.
 
 To get the plain URDF files, run the following commands in the `spot_description` directory:
 
