@@ -2,14 +2,14 @@
 
 <robot name="spot" xmlns:xacro="http://www.ros.org/wiki/xacro">
     <xacro:macro name="load_spot" params="
-    arm:=false
-    feet:=false
+    arm:=true
+    feet:=true
     gripperless:=false
     custom_gripper_base_link:=''
     tf_prefix
     include_transmissions=false
-    leg_damping:='0.0'
-    leg_friction:='0.0'"> 
+    leg_damping:='1.0'
+    leg_friction:='0.2'"> 
     <!-- 1.0, 0.2. First time it walked we used damping:=1.0 and friction:=0.2. Setting it back to zeros it was still walking -->
 
         <link name="${tf_prefix}body">

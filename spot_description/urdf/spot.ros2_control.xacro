@@ -18,10 +18,10 @@
                 <param name="min">${-velocity_max}</param>
                 <param name="max">${velocity_max}</param>
             </command_interface>
-            <command_interface name="effort">
+            <!-- <command_interface name="effort">
                 <param name="min">${-effort_max}</param>
                 <param name="max">${effort_max}</param>
-            </command_interface>
+            </command_interface> -->
             <command_interface name="k_q_p">
                 <param name="initial_value">${k_q_p}</param>
             </command_interface>
