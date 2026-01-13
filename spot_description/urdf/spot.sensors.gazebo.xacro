@@ -46,6 +46,7 @@
                     <topic>${name}_fisheye</topic>
                     <visualize>${visualize}</visualize>
                     <camera>
+                        <camera_info_topic>${name}_fisheye/camera_info</camera_info_topic>
                         <horizontal_fov>${radians(102.35)}</horizontal_fov> <!-- computed from real fx -->
                         <image>
                             <width>640</width>
@@ -79,6 +80,7 @@
                     <visualize>${visualize}</visualize>
                     <topic>${name}_depth</topic>
                     <camera>
+                        <camera_info_topic>${name}_depth/camera_info</camera_info_topic>
                         <horizontal_fov>${radians(102.35)}</horizontal_fov> <!-- put here equal to mono cam -->
                         <optical_frame_id>${prefix}camera_${name}</optical_frame_id>
                         <image>
@@ -105,10 +107,10 @@
     <xacro:macro name="add_cameras" params="prefix:='' ">
 
       <xacro:spot_camera prefix="${prefix}" name="frontleft" simulate="1" />
-      <xacro:fixed_joint name="camera_frontleft_j" parent="${prefix}base_link" child="${prefix}camera_frontleft" xyz="0.415 0.037 -0.01" rpy="0.0 0.353917 -0.554196" /> <!-- r: 1.355558 -->
+      <xacro:fixed_joint name="camera_frontleft_j" parent="${prefix}base_link" child="${prefix}camera_frontleft" xyz="0.415 0.037 -0.01" rpy="0.0 0.353917 -0.554196" /> <!-- r 1.355558 -->
 
       <xacro:spot_camera prefix="${prefix}" name="frontright" simulate="1" />
-      <xacro:fixed_joint name="camera_frontright_j" parent="${prefix}base_link" child="${prefix}camera_frontright" xyz="0.415 -0.037 -0.01" rpy="0.0 0.353917 0.554196" /> <!-- r: -1.355558-->
+      <xacro:fixed_joint name="camera_frontright_j" parent="${prefix}base_link" child="${prefix}camera_frontright" xyz="0.415 -0.037 -0.01" rpy="0.0 0.353917 0.554196" /> <!-- r -1.355558-->
 
       <xacro:spot_camera prefix="${prefix}" name="left" simulate="1" />
       <xacro:fixed_joint name="camera_left_j" parent="${prefix}base_link" child="${prefix}camera_left" xyz="-0.125 0.12 0.035" rpy="0 0.2 ${pi/2}" />

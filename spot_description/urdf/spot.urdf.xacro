@@ -9,8 +9,10 @@
   
   <!-- General parameters -->
 
-  <!-- String that will be prepended to all joints and links-->
+  <!-- String that will be prepended to all joints and links -->
+  <!-- Primary argument: tf_prefix. Alias: prefix (for compatibility). If both are set, they will be concatenated. -->
   <xacro:arg name="tf_prefix" default="" />
+  <xacro:arg name="prefix" default="" />
 
   <!-- Set to true if Spot has an arm -->
   <xacro:arg name="arm" default="false" />
@@ -36,12 +38,14 @@
 
   <!-- Simulate cameras -->
   <xacro:arg name="simulate_cameras" default="True" />
+  <!-- Path to ros2_control controllers config (YAML). Defaults to this package's config. -->
+  <xacro:arg name="controllers_config" default="$(find spot_description)/config/ros2_control_spot.yaml" />
 
   <!-- Load Spot -->
   <xacro:load_spot
     arm="$(arg arm)"
     feet="$(arg feet)"
-    tf_prefix="$(arg tf_prefix)" 
+    tf_prefix="$(arg tf_prefix)$(arg prefix)" 
     gripperless="$(arg gripperless)"
 	  include_transmissions="$(arg include_transmissions)" />
 
@@ -55,24 +59,25 @@
                                certificate="$(arg certificate)"
                                username="$(arg username)"
                                password="$(arg password)"
-                               tf_prefix="$(arg tf_prefix)"
+               tf_prefix="$(arg tf_prefix)$(arg prefix)"
                                k_q_p="$(arg k_q_p)"
-                               k_qd_p="$(arg k_qd_p)" />
+               k_qd_p="$(arg k_qd_p)"
+               controllers_config="$(arg controllers_config)" />
   </xacro:if>
   
   <!-- Adding cameras -->
   <xacro:if value="$(arg simulate_cameras)">
     <xacro:include filename="$(find spot_description)/urdf/spot.sensors.gazebo.xacro" />  
-    <xacro:add_cameras prefix="$(arg tf_prefix)" />
+    <xacro:add_cameras prefix="$(arg tf_prefix)$(arg prefix)" />
   </xacro:if>
 
   <!-- Gazebo tags -->
   <!--<xacro:spot_gazebo_physics />-->
 
-  <!-- Gazebo plugins: odom state publisher -->
+  <!-- Gazebo plugins odom state publisher -->
   <!--<xacro:spot_odometry_publisher />-->
 
-  <!-- Gazebo plugins: pose publisher -->
+  <!-- Gazebo plugins pose publisher -->
   <xacro:spot_pose_publisher />
 
 
