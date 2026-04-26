@@ -42,11 +42,12 @@
                 <!-- Ignition Gazebo doesn't yet have wideanglecamera https://github.com/ignitionrobotics/ign-sensors/issues/24 -->
                 <sensor name="${name}_fisheye_image" type="camera">
                     <pose>0 0.01 0 0 0 0</pose>
-                    <update_rate>30</update_rate>
+                    <update_rate>10</update_rate>
                     <topic>${name}_fisheye</topic>
                     <visualize>${visualize}</visualize>
                     <camera>
                         <camera_info_topic>${name}_fisheye/camera_info</camera_info_topic>
+                        <optical_frame_id>${prefix}camera_${name}</optical_frame_id>
                         <horizontal_fov>${radians(102.35)}</horizontal_fov> <!-- computed from real fx -->
                         <image>
                             <width>640</width>
@@ -84,8 +85,8 @@
                         <horizontal_fov>${radians(102.35)}</horizontal_fov> <!-- put here equal to mono cam -->
                         <optical_frame_id>${prefix}camera_${name}</optical_frame_id>
                         <image>
-                            <width>424</width>
-                            <height>240</height>
+                            <width>640</width>
+                            <height>480</height>
                             <format>R_FLOAT32</format>
                         </image>
                         <clip>
